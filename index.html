@@ -31,9 +31,11 @@
       <script type="text/javascript">
         console.log('hello saurabh');
 
-        document.addEventListener('message',(data)=>{
+        window.addEventListener('message',(data)=>{
+          window.ReactNativeWebView.postMessage('Hello Saurabh');
           if(typeof(data.data)=="string" && data.data.includes('token')){
             let token = data.data.split('token=')[1];
+            
             window.ReactNativeWebView.postMessage('document_message current_token ' + token);
             var st = SecureTrading({ 
               jwt : token,
@@ -52,7 +54,7 @@
         })
           window.addEventListener('message',(data)=>{
             // let isValid = data.data.nativeEvent.data=="qwertyuiop";
-            window.ReactNativeWebView.postMessage('message receivedssss ' + JSON.stringify(data.data));
+            window.ReactNativeWebView.postMessage('message received ' + JSON.stringify(data.data));
           });
           
       </script>
