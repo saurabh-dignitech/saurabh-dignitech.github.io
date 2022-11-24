@@ -1,0 +1,60 @@
+<html>
+    <head>
+      <style>
+       /* #st-card-number{ 
+        border-radius: "0";
+        border:"0";
+        background:" transparent!important";
+        border-bottom: 1px solid #ccc;
+        width: 280px;
+        color: #000;
+        font-weight: 900;
+      } */
+      </style>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+  
+    <body>
+      <div id="st-notification-frame"></div>
+      <form id="stform" action="#">
+        <div id="st-card-number" class="form-control form-control-iput"></div>
+        <div id="st-expiration-date" class="form-control form-control-iput"></div>
+        <div id="st-security-code" class="form-control form-control-iput"></div>
+        <!-- <button type="submit" id="st-form__submit" class="st-form__submit">
+          
+        </button> -->
+        <button id="my-btn" style="width: 90%; height: 40px; background-color: #37517E; color: white;">
+          Pay
+        </button>
+      </form>
+      <script src="https://webservices.securetrading.net/js/v3/st.js"></script>
+      <script type="text/javascript">
+        console.log('dfdfnjkndfkjndfkjdbnk')
+
+        document.addEventListener('message',(data)=>{
+          if(typeof(data.data)=="string" && data.data.includes('token')){
+            let token = data.data.split('token=')[1];
+            window.ReactNativeWebView.postMessage('document_message current_token ' + token);
+            var st = SecureTrading({ 
+              jwt : token,
+            // jwt:'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwYXlsb2FkIjp7ImFjY291bnR0eXBlZGVzY3JpcHRpb24iOiJFQ09NIiwiYmFzZWFtb3VudCI6MjQ5OTksImN1cnJlbmN5aXNvM2EiOiJFVVIiLCJiaWxsaW5nZW1haWwiOiJzaHViaGFtLnBhbmRleUBkaWduaXRlY2guY29tIiwic2l0ZXJlZmVyZW5jZSI6InRlc3Rfd2hpdGVmaW5hbmNpYWx1YWJ1azkzNzU5IiwicmVxdWVzdHR5cGVkZXNjcmlwdGlvbnMiOlsiVEhSRUVEUVVFUlkiLCJBVVRIIl19LCJpYXQiOjE2NDkzMjcyMjUsImlzcyI6Imp3dEBjb250b2Vuam95LmNvbSJ9.Rgsu6p4gvgBeShQhaYdc8Vu6_10r1jJbRvMuUsbbWhw',
+            formId: "stform",
+            livestatus: 1,
+            buttonId : 'my-btn',
+            submitCallback : function(response){
+              window.ReactNativeWebView.postMessage('submit_callback' + JSON.stringify(response));
+            }
+          }); 
+          st.Components(); 
+            window.ReactNativeWebView.postMessage('document_message token passed');
+            
+          }
+        })
+          window.addEventListener('message',(data)=>{
+            // let isValid = data.data.nativeEvent.data=="qwertyuiop";
+            window.ReactNativeWebView.postMessage('message receivedssss ' + JSON.stringify(data.data));
+          });
+          
+      </script>
+    </body>
+  </html>
